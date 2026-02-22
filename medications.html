@@ -6,83 +6,134 @@
 <title>PillPath — Medications</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'DM Sans', sans-serif; background: #E8EDF5; display: flex; justify-content: center; min-height: 100vh; }
-  .phone { width: 390px; min-height: 844px; background: #EEF4FF; border-radius: 40px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(0,0,0,0.3); }
-  .status-bar { height: 44px; background: #0D1B3E; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; font-size: 12px; color: #9AA5BE; font-weight: 600; flex-shrink: 0; }
-  .header { background: #0D1B3E; padding: 16px 24px 24px; }
-  .page-title { font-size: 22px; font-weight: 800; color: white; }
-  .page-sub { font-size: 13px; color: #9AA5BE; margin-top: 2px; }
-  .screen { flex: 1; display: flex; flex-direction: column; padding: 20px; gap: 14px; padding-bottom: 85px; }
-  .alert-banner { background: #FFF3CD; border: 2px solid #FFB300; border-radius: 14px; padding: 12px 16px; font-size: 12px; font-weight: 700; color: #856404; display: flex; align-items: center; gap: 10px; }
-  .card { background: white; border-radius: 18px; padding: 16px; box-shadow: 0 2px 12px rgba(13,27,62,0.08); }
-  .card-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #9AA5BE; margin-bottom: 12px; }
-  .med-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #EEF4FF; }
-  .med-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .med-icon { width: 40px; height: 40px; background: #EEF4FF; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .med-info { flex: 1; }
-  .med-name { font-size: 14px; font-weight: 700; color: #0D1B3E; }
-  .med-detail { font-size: 11px; color: #9AA5BE; margin-top: 2px; }
-  .med-time-badge { background: #EEF4FF; color: #1A73E8; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
-  .low-badge { background: #FFF3CD; color: #856404; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-top: 4px; display: inline-block; }
-  .btn-row { display: flex; gap: 10px; }
-  .btn-primary { flex: 1; background: #1A73E8; color: white; border: none; border-radius: 14px; padding: 14px; font-size: 14px; font-weight: 700; font-family: 'DM Sans', sans-serif; cursor: pointer; text-align: center; }
-  .btn-outline { flex: 1; background: white; color: #1A73E8; border: 2px solid #1A73E8; border-radius: 14px; padding: 14px; font-size: 14px; font-weight: 700; font-family: 'DM Sans', sans-serif; cursor: pointer; text-align: center; }
-  .nav-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 390px; height: 70px; background: #0D1B3E; display: flex; align-items: center; justify-content: space-around; padding: 0 10px; z-index: 100; border-top: 1px solid #1A3A6E; }
-  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; color: #9AA5BE; font-weight: 600; text-decoration: none; }
-  .nav-item.active { color: #1A73E8; }
-  .nav-icon { font-size: 20px; }
-  .nav-logo-btn img { width: 44px; height: 44px; object-fit: contain; border-radius: 50%; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+.phone { width: 390px; height: 844px; background: #EEF4FF; border-radius: 50px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(13,27,62,0.3); position: relative; }
+.status-bar { height: 44px; background: #0D1B3E; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; font-size: 12px; color: white; font-weight: 600; flex-shrink: 0; }
+.screen-content { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; background: #EEF4FF; }
+.screen-title { font-size: 22px; font-weight: 800; color: #0D1B3E; }
+.card { background: white; border-radius: 18px; padding: 16px; box-shadow: 0 2px 12px rgba(26,115,232,0.08); }
+.card-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #1A73E8; margin-bottom: 12px; }
+.alert-banner { background: #FEF3C7; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 10px 14px; font-size: 12px; font-weight: 600; color: #92400E; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.med-row { display: flex; align-items: center; gap: 12px; padding: 12px 8px; border-bottom: 1px solid #EEF4FF; border-radius: 8px; cursor: pointer; transition: background 0.15s; }
+.med-row:last-child { border-bottom: none; }
+.med-row:hover { background: #F8FBFF; }
+.med-check { width: 22px; height: 22px; border: 2px solid #1A73E8; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.med-check.checked { background: #1A73E8; color: white; font-size: 12px; }
+.med-icon { width: 36px; height: 36px; background: #E8F0FE; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.med-info { flex: 1; }
+.med-name { font-size: 13px; font-weight: 700; color: #0D1B3E; transition: all 0.2s; }
+.med-name.done { color: #9AA5BE; text-decoration: line-through; }
+.med-detail { font-size: 11px; color: #9AA5BE; margin-top: 2px; }
+.med-time { font-size: 11px; font-weight: 700; color: #1A73E8; background: #E8F0FE; padding: 3px 8px; border-radius: 8px; flex-shrink: 0; }
+.btn-row { display: flex; gap: 10px; }
+.btn-primary { background: #1A73E8; color: white; border: none; border-radius: 14px; padding: 14px 20px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; font-family: 'DM Sans', sans-serif; text-decoration: none; display: block; flex: 1; transition: background 0.2s; }
+.btn-primary:hover { background: #1557b0; }
+.btn-outline { background: white; color: #1A73E8; border: 2px solid #1A73E8; border-radius: 14px; padding: 12px 20px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; font-family: 'DM Sans', sans-serif; text-decoration: none; display: block; flex: 1; }
+.low-badge { background: #FEF3C7; color: #92400E; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-top: 3px; }
+.nav-bar { height: 72px; background: #0D1B3E; display: flex; align-items: center; justify-content: space-around; padding: 0 8px; flex-shrink: 0; }
+.nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; color: #9AA5BE; font-weight: 600; text-decoration: none; padding: 6px 10px; border-radius: 10px; }
+.nav-item.active { color: white; }
+.nav-icon { font-size: 18px; }
+.nav-logo-btn { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #1A73E8; overflow: hidden; text-decoration: none; flex-shrink: 0; }
+.nav-logo-btn img { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; }
+.toast { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); background: #0D1B3E; color: white; padding: 10px 20px; border-radius: 20px; font-size: 12px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: 100; }
+.toast.show { opacity: 1; }
+/* MODAL */
+.modal-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13,27,62,0.6); display: none; align-items: flex-end; justify-content: center; z-index: 200; border-radius: 50px; }
+.modal-overlay.show { display: flex; }
+.modal { background: white; border-radius: 24px 24px 0 0; padding: 24px 20px; width: 100%; }
+.modal-title { font-size: 16px; font-weight: 800; color: #0D1B3E; margin-bottom: 16px; }
+.modal-input { width: 100%; background: #EEF4FF; border: 1.5px solid #CCDEFF; border-radius: 12px; padding: 12px 16px; font-size: 13px; color: #0D1B3E; font-family: 'DM Sans', sans-serif; outline: none; margin-bottom: 10px; }
+.modal-btn-row { display: flex; gap: 10px; margin-top: 6px; }
+.modal-btn { flex: 1; padding: 13px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; font-family: 'DM Sans', sans-serif; }
+.modal-btn.confirm { background: #1A73E8; color: white; }
+.modal-btn.cancel { background: #EEF4FF; color: #9AA5BE; }
 </style>
 </head>
 <body>
 <div class="phone">
-  <div class="status-bar"><span>9:41</span><span>●●● 100%</span></div>
-  <div class="header">
-    <div class="page-title">Medications 💊</div>
-    <div class="page-sub">3 medications tracked</div>
-  </div>
-  <div class="screen">
-    <div class="alert-banner">⚠️ Ventolin inhaler is running low — renew soon!</div>
+  <div class="status-bar"><span>9:41</span><span>●●●</span></div>
+  <div class="screen-content">
+    <div class="screen-title">Medications</div>
+    <div class="alert-banner" onclick="showToast('📋 Renewal request sent to pharmacy!')">⚠️ Renewal Alert — Ventolin inhaler is running low. Tap to renew.</div>
     <div class="card">
-      <div class="card-title">My Medications</div>
-      <div class="med-row">
+      <div class="card-title">💊 My Medications</div>
+      <div class="med-row" onclick="toggleMed(this)">
+        <div class="med-check checked">✓</div>
         <div class="med-icon">💊</div>
-        <div class="med-info">
-          <div class="med-name">Metformin</div>
-          <div class="med-detail">500mg · Twice daily</div>
-          <div class="med-time-badge">8:00 AM · 8:00 PM</div>
-        </div>
+        <div class="med-info"><div class="med-name done">Metformin</div><div class="med-detail">500mg · Once daily</div></div>
+        <div class="med-time">8:00 AM</div>
       </div>
-      <div class="med-row">
-        <div class="med-icon">🩺</div>
-        <div class="med-info">
-          <div class="med-name">Lisinopril</div>
-          <div class="med-detail">10mg · Once daily</div>
-          <div class="med-time-badge">12:00 PM</div>
-        </div>
+      <div class="med-row" onclick="toggleMed(this)">
+        <div class="med-check"></div>
+        <div class="med-icon">💊</div>
+        <div class="med-info"><div class="med-name">Lisinopril</div><div class="med-detail">10mg · Once daily</div></div>
+        <div class="med-time">12:00 PM</div>
       </div>
-      <div class="med-row">
-        <div class="med-icon">💨</div>
-        <div class="med-info">
-          <div class="med-name">Ventolin Inhaler</div>
-          <div class="med-detail">As needed (PRN)</div>
-          <div class="low-badge">⚠️ Running Low</div>
-        </div>
+      <div class="med-row" onclick="toggleMed(this)">
+        <div class="med-check"></div>
+        <div class="med-icon">🫁</div>
+        <div class="med-info"><div class="med-name">Ventolin Inhaler</div><div class="med-detail">As needed</div><div class="low-badge">⚠️ Running Low</div></div>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn-primary">Log New Dose</button>
-      <button class="btn-outline">Remove Dose</button>
+      <button class="btn-primary" onclick="document.getElementById('addModal').classList.add('show')">+ Log New Dose</button>
+      <button class="btn-outline" onclick="showToast('Dose removed')">Remove Dose</button>
     </div>
   </div>
-  <div class="nav-bar">
-    <a href="home.html" class="nav-item"><div class="nav-icon">🏠</div><span>Home</span></a>
-    <a href="medications.html" class="nav-item active"><div class="nav-icon">💊</div><span>Meds</span></a>
-    <a href="home.html" class="nav-logo-btn"><img src="data:image/png;base64,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" alt="PillPath"></a>
-    <a href="appointments.html" class="nav-item"><div class="nav-icon">📅</div><span>Appts</span></a>
-    <a href="messaging.html" class="nav-item"><div class="nav-icon">💬</div><span>Message</span></a>
+
+  <!-- ADD MEDICATION MODAL -->
+  <div class="modal-overlay" id="addModal">
+    <div class="modal">
+      <div class="modal-title">Log a New Dose</div>
+      <input class="modal-input" placeholder="Medication name" id="medName">
+      <input class="modal-input" placeholder="Dosage (e.g. 500mg)">
+      <input class="modal-input" placeholder="Time (e.g. 8:00 AM)">
+      <div class="modal-btn-row">
+        <button class="modal-btn cancel" onclick="document.getElementById('addModal').classList.remove('show')">Cancel</button>
+        <button class="modal-btn confirm" onclick="logDose()">Log Dose ✓</button>
+      </div>
+    </div>
   </div>
+
+  <nav class="nav-bar">
+    <a href="home.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+    <a href="medications.html" class="nav-item active"><span class="nav-icon">💊</span><span>Meds</span></a>
+    <a href="home.html" class="nav-logo-btn"><img src="data:image/png;base64,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" alt="PillPath"></a>
+    <a href="appointments.html" class="nav-item"><span class="nav-icon">📅</span><span>Appts</span></a>
+    <a href="messaging.html" class="nav-item"><span class="nav-icon">💬</span><span>Message</span></a>
+  </nav>
+  <div class="toast" id="toast"></div>
 </div>
+<script>
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+function toggleMed(row) {
+  const check = row.querySelector('.med-check');
+  const name = row.querySelector('.med-name');
+  const isChecked = check.classList.contains('checked');
+  if (isChecked) {
+    check.classList.remove('checked');
+    check.textContent = '';
+    name.classList.remove('done');
+    showToast('Dose unmarked');
+  } else {
+    check.classList.add('checked');
+    check.textContent = '✓';
+    name.classList.add('done');
+    showToast('✓ Dose logged successfully!');
+  }
+}
+function logDose() {
+  const name = document.getElementById('medName').value || 'Medication';
+  document.getElementById('addModal').classList.remove('show');
+  showToast('✓ ' + name + ' logged!');
+}
+</script>
 </body>
 </html>
