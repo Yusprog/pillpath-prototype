@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PillPath — Messaging</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #E8EDF5; display: flex; justify-content: center; min-height: 100vh; }
+  .phone { width: 390px; min-height: 844px; background: #EEF4FF; border-radius: 40px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(0,0,0,0.3); }
+  .status-bar { height: 44px; background: #0D1B3E; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; font-size: 12px; color: #9AA5BE; font-weight: 600; flex-shrink: 0; }
+  .header { background: #0D1B3E; padding: 16px 24px 20px; display: flex; align-items: center; gap: 14px; }
+  .doctor-avatar { width: 46px; height: 46px; background: #1A73E8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .doctor-info { flex: 1; }
+  .doctor-name { font-size: 16px; font-weight: 800; color: white; }
+  .doctor-status { font-size: 11px; color: #9AA5BE; }
+  .screen { flex: 1; display: flex; flex-direction: column; padding: 16px; gap: 8px; padding-bottom: 85px; overflow-y: auto; }
+  .chat-bubble { max-width: 75%; padding: 10px 14px; border-radius: 18px; font-size: 13px; line-height: 1.5; }
+  .received { background: white; color: #0D1B3E; border-bottom-left-radius: 4px; align-self: flex-start; box-shadow: 0 2px 8px rgba(13,27,62,0.08); }
+  .sent { background: #1A73E8; color: white; border-bottom-right-radius: 4px; align-self: flex-end; }
+  .msg-time { font-size: 10px; color: #9AA5BE; padding: 0 4px; }
+  .msg-time.right { text-align: right; }
+  .input-area { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); width: 390px; background: white; padding: 10px 16px; display: flex; gap: 10px; align-items: center; border-top: 1px solid #EEF4FF; }
+  .chat-input { flex: 1; background: #EEF4FF; border: none; border-radius: 20px; padding: 10px 16px; font-size: 13px; color: #0D1B3E; font-family: 'DM Sans', sans-serif; outline: none; }
+  .send-btn { width: 36px; height: 36px; background: #1A73E8; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; }
+  .nav-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 390px; height: 70px; background: #0D1B3E; display: flex; align-items: center; justify-content: space-around; padding: 0 10px; z-index: 100; border-top: 1px solid #1A3A6E; }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; color: #9AA5BE; font-weight: 600; text-decoration: none; }
+  .nav-item.active { color: #1A73E8; }
+  .nav-icon { font-size: 20px; }
+  .nav-logo-btn img { width: 44px; height: 44px; object-fit: contain; border-radius: 50%; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar"><span>9:41</span><span>●●● 100%</span></div>
+  <div class="header">
+    <div class="doctor-avatar">👩‍⚕️</div>
+    <div class="doctor-info">
+      <div class="doctor-name">Dr. Sarah Smith</div>
+      <div class="doctor-status">Cardiologist · Usually replies within 24h</div>
+    </div>
+  </div>
+  <div class="screen">
+    <div class="msg-time">Yesterday · 2:14 PM</div>
+    <div class="chat-bubble received">Hi Sofia, how are you feeling after starting the new dosage?</div>
+    <div class="chat-bubble sent">Better! The dizziness is gone. Still getting some fatigue though.</div>
+    <div class="chat-bubble received">That's completely normal for the first 2 weeks. Let me know if it persists beyond that.</div>
+    <div class="msg-time">Today · 9:02 AM</div>
+    <div class="chat-bubble sent">Also my Ventolin inhaler is running very low — could you send a renewal to my pharmacy?</div>
+    <div class="chat-bubble received">Of course! I've sent the renewal to Pharmaprix on St-Denis. It should be ready by this afternoon. 🙂</div>
+    <div class="chat-bubble sent">Thank you so much! 🙏</div>
+  </div>
+  <div class="input-area">
+    <input class="chat-input" type="text" placeholder="Type a message...">
+    <button class="send-btn">➤</button>
+  </div>
+  <div class="nav-bar">
+    <a href="home.html" class="nav-item"><div class="nav-icon">🏠</div><span>Home</span></a>
+    <a href="medications.html" class="nav-item"><div class="nav-icon">💊</div><span>Meds</span></a>
+    <a href="home.html" class="nav-logo-btn"><img src="data:image/png;base64,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" alt="PillPath"></a>
+    <a href="appointments.html" class="nav-item"><div class="nav-icon">📅</div><span>Appts</span></a>
+    <a href="messaging.html" class="nav-item active"><div class="nav-icon">💬</div><span>Message</span></a>
+  </div>
+</div>
+</body>
+</html>
