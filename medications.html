@@ -14,7 +14,7 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
 .screen-title { font-size: 22px; font-weight: 800; color: #0D1B3E; }
 .card { background: white; border-radius: 18px; padding: 16px; box-shadow: 0 2px 12px rgba(26,115,232,0.08); }
 .card-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #1A73E8; margin-bottom: 12px; }
-.alert-banner { background: #FEF3C7; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 10px 14px; font-size: 12px; font-weight: 600; color: #92400E; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.alert-banner { background: #FEF3C7; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 10px 14px; font-size: 12px; font-weight: 600; color: #92400E; display: flex; align-items: center; gap: 8px; }
 .med-row { display: flex; align-items: center; gap: 12px; padding: 12px 8px; border-bottom: 1px solid #EEF4FF; border-radius: 8px; cursor: pointer; transition: background 0.15s; }
 .med-row:last-child { border-bottom: none; }
 .med-row:hover { background: #F8FBFF; }
@@ -26,20 +26,16 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
 .med-name.done { color: #9AA5BE; text-decoration: line-through; }
 .med-detail { font-size: 11px; color: #9AA5BE; margin-top: 2px; }
 .med-time { font-size: 11px; font-weight: 700; color: #1A73E8; background: #E8F0FE; padding: 3px 8px; border-radius: 8px; flex-shrink: 0; }
-.btn-row { display: flex; gap: 10px; }
-.btn-primary { background: #1A73E8; color: white; border: none; border-radius: 14px; padding: 14px 20px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; font-family: 'DM Sans', sans-serif; text-decoration: none; display: block; flex: 1; transition: background 0.2s; }
-.btn-primary:hover { background: #1557b0; }
-.btn-outline { background: white; color: #1A73E8; border: 2px solid #1A73E8; border-radius: 14px; padding: 12px 20px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; font-family: 'DM Sans', sans-serif; text-decoration: none; display: block; flex: 1; }
 .low-badge { background: #FEF3C7; color: #92400E; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-top: 3px; }
+.btn-row { display: flex; gap: 10px; }
+.btn-primary { background: #1A73E8; color: white; border: none; border-radius: 14px; padding: 14px 20px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; flex: 1; }
+.btn-outline { background: white; color: #1A73E8; border: 2px solid #1A73E8; border-radius: 14px; padding: 12px 20px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; flex: 1; }
 .nav-bar { height: 72px; background: #0D1B3E; display: flex; align-items: center; justify-content: space-around; padding: 0 8px; flex-shrink: 0; }
 .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; color: #9AA5BE; font-weight: 600; text-decoration: none; padding: 6px 10px; border-radius: 10px; }
 .nav-item.active { color: white; }
 .nav-icon { font-size: 18px; }
 .nav-logo-btn { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #1A73E8; overflow: hidden; text-decoration: none; flex-shrink: 0; }
 .nav-logo-btn img { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; }
-.toast { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); background: #0D1B3E; color: white; padding: 10px 20px; border-radius: 20px; font-size: 12px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: 100; }
-.toast.show { opacity: 1; }
-/* MODAL */
 .modal-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13,27,62,0.6); display: none; align-items: flex-end; justify-content: center; z-index: 200; border-radius: 50px; }
 .modal-overlay.show { display: flex; }
 .modal { background: white; border-radius: 24px 24px 0 0; padding: 24px 20px; width: 100%; }
@@ -56,7 +52,7 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
   <div class="status-bar"><span>9:41</span><span>●●●</span></div>
   <div class="screen-content">
     <div class="screen-title">Medications</div>
-    <div class="alert-banner" onclick="showToast('📋 Renewal request sent to pharmacy!')">⚠️ Renewal Alert — Ventolin inhaler is running low. Tap to renew.</div>
+    <div class="alert-banner">⚠️ Renewal Alert — Ventolin inhaler is running low</div>
     <div class="card">
       <div class="card-title">💊 My Medications</div>
       <div class="med-row" onclick="toggleMed(this)">
@@ -79,20 +75,32 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
     </div>
     <div class="btn-row">
       <button class="btn-primary" onclick="document.getElementById('addModal').classList.add('show')">+ Log New Dose</button>
-      <button class="btn-outline" onclick="showToast('Dose removed')">Remove Dose</button>
+      <button class="btn-outline" onclick="document.getElementById('removeModal').classList.add('show')">Remove Dose</button>
     </div>
   </div>
 
-  <!-- ADD MEDICATION MODAL -->
+  <!-- LOG DOSE MODAL - visual only -->
   <div class="modal-overlay" id="addModal">
     <div class="modal">
       <div class="modal-title">Log a New Dose</div>
-      <input class="modal-input" placeholder="Medication name" id="medName">
+      <input class="modal-input" placeholder="Medication name">
       <input class="modal-input" placeholder="Dosage (e.g. 500mg)">
       <input class="modal-input" placeholder="Time (e.g. 8:00 AM)">
       <div class="modal-btn-row">
         <button class="modal-btn cancel" onclick="document.getElementById('addModal').classList.remove('show')">Cancel</button>
-        <button class="modal-btn confirm" onclick="logDose()">Log Dose ✓</button>
+        <button class="modal-btn confirm" onclick="document.getElementById('addModal').classList.remove('show')">Log Dose ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REMOVE DOSE MODAL - visual only -->
+  <div class="modal-overlay" id="removeModal">
+    <div class="modal">
+      <div class="modal-title">Remove a Dose</div>
+      <input class="modal-input" placeholder="Medication name">
+      <div class="modal-btn-row">
+        <button class="modal-btn cancel" onclick="document.getElementById('removeModal').classList.remove('show')">Cancel</button>
+        <button class="modal-btn confirm" onclick="document.getElementById('removeModal').classList.remove('show')">Remove</button>
       </div>
     </div>
   </div>
@@ -104,15 +112,8 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
     <a href="appointments.html" class="nav-item"><span class="nav-icon">📅</span><span>Appts</span></a>
     <a href="messaging.html" class="nav-item"><span class="nav-icon">💬</span><span>Message</span></a>
   </nav>
-  <div class="toast" id="toast"></div>
 </div>
 <script>
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
 function toggleMed(row) {
   const check = row.querySelector('.med-check');
   const name = row.querySelector('.med-name');
@@ -121,18 +122,11 @@ function toggleMed(row) {
     check.classList.remove('checked');
     check.textContent = '';
     name.classList.remove('done');
-    showToast('Dose unmarked');
   } else {
     check.classList.add('checked');
     check.textContent = '✓';
     name.classList.add('done');
-    showToast('✓ Dose logged successfully!');
   }
-}
-function logDose() {
-  const name = document.getElementById('medName').value || 'Medication';
-  document.getElementById('addModal').classList.remove('show');
-  showToast('✓ ' + name + ' logged!');
 }
 </script>
 </body>

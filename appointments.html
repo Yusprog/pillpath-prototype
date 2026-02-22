@@ -19,11 +19,10 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
 .cal-grid-header { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
 .cal-day-label { font-size: 9px; font-weight: 700; color: #9AA5BE; text-align: center; text-transform: uppercase; }
 .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
-.cal-day { height: 30px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #0D1B3E; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background 0.15s; }
-.cal-day:hover { background: #EEF4FF; }
+.cal-day { height: 30px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #0D1B3E; border-radius: 8px; font-weight: 500; }
 .cal-day.active { background: #1A73E8; color: white; font-weight: 700; }
 .cal-day.has-appt { background: #E8F0FE; color: #1A73E8; font-weight: 700; }
-.cal-day.empty { color: transparent; pointer-events: none; }
+.cal-day.empty { color: transparent; }
 .header-row { display: flex; align-items: center; justify-content: space-between; }
 .section-label { font-size: 13px; font-weight: 700; color: #0D1B3E; }
 .btn-add { background: #1A73E8; color: white; border: none; border-radius: 10px; padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
@@ -40,8 +39,6 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
 .nav-icon { font-size: 18px; }
 .nav-logo-btn { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #1A73E8; overflow: hidden; text-decoration: none; flex-shrink: 0; }
 .nav-logo-btn img { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; }
-.toast { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); background: #0D1B3E; color: white; padding: 10px 20px; border-radius: 20px; font-size: 12px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: 100; }
-.toast.show { opacity: 1; }
 .modal-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13,27,62,0.6); display: none; align-items: flex-end; justify-content: center; z-index: 200; border-radius: 50px; }
 .modal-overlay.show { display: flex; }
 .modal { background: white; border-radius: 24px 24px 0 0; padding: 24px 20px; width: 100%; }
@@ -51,7 +48,6 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
 .modal-btn { flex: 1; padding: 13px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; font-family: 'DM Sans', sans-serif; }
 .modal-btn.confirm { background: #1A73E8; color: white; }
 .modal-btn.cancel { background: #EEF4FF; color: #9AA5BE; }
-#appt-list { display: flex; flex-direction: column; gap: 10px; }
 </style>
 </head>
 <body>
@@ -80,29 +76,27 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
       <div class="section-label">Upcoming</div>
       <button class="btn-add" onclick="document.getElementById('apptModal').classList.add('show')">+ Add Appointment</button>
     </div>
-    <div id="appt-list">
-      <div class="appt-card">
-        <div class="appt-date-box"><div class="appt-date-day">25</div><div class="appt-date-month">Feb</div></div>
-        <div><div class="appt-name">Dr. Smith — Cardiology</div><div class="appt-detail">10:30 AM · Royal Victoria Hospital</div><div class="appt-badge">In 3 days</div></div>
-      </div>
-      <div class="appt-card">
-        <div class="appt-date-box"><div class="appt-date-day">3</div><div class="appt-date-month">Mar</div></div>
-        <div><div class="appt-name">Dr. Chen — General Practice</div><div class="appt-detail">2:00 PM · Clinique Nord</div><div class="appt-badge">In 10 days</div></div>
-      </div>
+    <div class="appt-card">
+      <div class="appt-date-box"><div class="appt-date-day">25</div><div class="appt-date-month">Feb</div></div>
+      <div><div class="appt-name">Dr. Smith — Cardiology</div><div class="appt-detail">10:30 AM · Royal Victoria Hospital</div><div class="appt-badge">In 3 days</div></div>
+    </div>
+    <div class="appt-card">
+      <div class="appt-date-box"><div class="appt-date-day">3</div><div class="appt-date-month">Mar</div></div>
+      <div><div class="appt-name">Dr. Chen — General Practice</div><div class="appt-detail">2:00 PM · Clinique Nord</div><div class="appt-badge">In 10 days</div></div>
     </div>
   </div>
 
-  <!-- ADD APPOINTMENT MODAL -->
+  <!-- ADD APPOINTMENT MODAL - visual only -->
   <div class="modal-overlay" id="apptModal">
     <div class="modal">
       <div class="modal-title">Add Appointment</div>
-      <input class="modal-input" placeholder="Doctor name & specialty" id="docName">
-      <input class="modal-input" placeholder="Date (e.g. Mar 15)" id="apptDate">
+      <input class="modal-input" placeholder="Doctor name & specialty">
+      <input class="modal-input" placeholder="Date (e.g. Mar 15)">
       <input class="modal-input" placeholder="Time (e.g. 10:30 AM)">
       <input class="modal-input" placeholder="Location">
       <div class="modal-btn-row">
         <button class="modal-btn cancel" onclick="document.getElementById('apptModal').classList.remove('show')">Cancel</button>
-        <button class="modal-btn confirm" onclick="addAppointment()">Save Appointment</button>
+        <button class="modal-btn confirm" onclick="document.getElementById('apptModal').classList.remove('show')">Save Appointment</button>
       </div>
     </div>
   </div>
@@ -114,37 +108,6 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
     <a href="appointments.html" class="nav-item active"><span class="nav-icon">📅</span><span>Appts</span></a>
     <a href="messaging.html" class="nav-item"><span class="nav-icon">💬</span><span>Message</span></a>
   </nav>
-  <div class="toast" id="toast"></div>
 </div>
-<script>
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-function addAppointment() {
-  const doc = document.getElementById('docName').value || 'New Doctor';
-  const date = document.getElementById('apptDate').value || 'TBD';
-  const list = document.getElementById('appt-list');
-  const card = document.createElement('div');
-  card.className = 'appt-card';
-  const parts = date.split(' ');
-  card.innerHTML = `
-    <div class="appt-date-box">
-      <div class="appt-date-day">${parts[1] || '—'}</div>
-      <div class="appt-date-month">${parts[0] || '—'}</div>
-    </div>
-    <div>
-      <div class="appt-name">${doc}</div>
-      <div class="appt-detail">${date}</div>
-      <div class="appt-badge">Upcoming</div>
-    </div>
-  `;
-  list.appendChild(card);
-  document.getElementById('apptModal').classList.remove('show');
-  showToast('✅ Appointment saved!');
-}
-</script>
 </body>
 </html>

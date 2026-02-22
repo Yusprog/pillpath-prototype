@@ -31,12 +31,6 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
 .nav-icon { font-size: 18px; }
 .nav-logo-btn { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #1A73E8; overflow: hidden; text-decoration: none; flex-shrink: 0; }
 .nav-logo-btn img { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; }
-.typing-indicator { display: none; align-self: flex-start; background: white; border-radius: 18px; border-bottom-left-radius: 4px; padding: 10px 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-.typing-dots { display: flex; gap: 4px; }
-.dot { width: 6px; height: 6px; background: #9AA5BE; border-radius: 50%; animation: bounce 1.2s infinite; }
-.dot:nth-child(2) { animation-delay: 0.2s; }
-.dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
 </style>
 </head>
 <body>
@@ -49,7 +43,7 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
       <div class="doc-status"><span class="online-dot"></span>Cardiologist · Usually replies in 24h</div>
     </div>
   </div>
-  <div class="chat-area" id="chatArea">
+  <div class="chat-area">
     <div>
       <div class="bubble received">Hi Sofia! How are you feeling after starting the new dosage?</div>
       <div class="bubble-time">Yesterday 9:12 AM</div>
@@ -70,15 +64,10 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
       <div class="bubble received">Of course! I'll send the renewal to Pharmaprix on Ste-Catherine right now 💊</div>
       <div class="bubble-time">Today 9:00 AM</div>
     </div>
-    <div class="typing-indicator" id="typingIndicator">
-      <div class="typing-dots">
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      </div>
-    </div>
   </div>
   <div class="chat-input-area">
-    <input class="chat-input" id="msgInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendMessage()">
-    <button class="send-btn" onclick="sendMessage()">➤</button>
+    <input class="chat-input" placeholder="Type a message...">
+    <button class="send-btn">➤</button>
   </div>
   <nav class="nav-bar">
     <a href="home.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
@@ -88,38 +77,5 @@ body { font-family: 'DM Sans', sans-serif; background: #CCDEFF; display: flex; a
     <a href="messaging.html" class="nav-item active"><span class="nav-icon">💬</span><span>Message</span></a>
   </nav>
 </div>
-<script>
-const replies = [
-  "Thanks for letting me know! I'll update your file.",
-  "Got it! Is there anything else I can help you with?",
-  "I'll review that and get back to you shortly.",
-  "That's great to hear! Keep up with the medication schedule.",
-  "I've noted that in your chart. See you at your next appointment!"
-];
-function sendMessage() {
-  const input = document.getElementById('msgInput');
-  const text = input.value.trim();
-  if (!text) return;
-  const chat = document.getElementById('chatArea');
-  const typing = document.getElementById('typingIndicator');
-  const msgDiv = document.createElement('div');
-  const now = new Date();
-  const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-  msgDiv.innerHTML = `<div class="bubble sent">${text}</div><div class="bubble-time right">Today ${time}</div>`;
-  chat.insertBefore(msgDiv, typing);
-  input.value = '';
-  chat.scrollTop = chat.scrollHeight;
-  typing.style.display = 'block';
-  chat.scrollTop = chat.scrollHeight;
-  setTimeout(() => {
-    typing.style.display = 'none';
-    const replyDiv = document.createElement('div');
-    const reply = replies[Math.floor(Math.random() * replies.length)];
-    replyDiv.innerHTML = `<div class="bubble received">${reply}</div><div class="bubble-time">Just now</div>`;
-    chat.insertBefore(replyDiv, typing);
-    chat.scrollTop = chat.scrollHeight;
-  }, 1800);
-}
-</script>
 </body>
 </html>
